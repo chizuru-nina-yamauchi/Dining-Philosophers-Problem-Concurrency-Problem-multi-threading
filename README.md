@@ -51,3 +51,5 @@ These resources helped me understand to finish this assignment.
 - https://www.baeldung.com/java-dining-philoshophers (Java Dining Philosophers)
 - https://www.datasciencecentral.com/developing-multi-threaded-applications-with-java-concurrency-api/#:~:text=Java%20Concurrency%20API%20is%20a,and%20parallel%20code%20in%20Java. (Developing Multi-Threaded Applications with Java Concurrency API)
 - https://www.baeldung.com/java-binary-semaphore-vs-reentrant-lock (Java Binary Semaphore vs Reentrant Lock)
+- https://leon-wtf.github.io/doc/java-concurrency-in-practice.pdf (Java Concurrency in Practice by Brian Goetz)
+- Head First Java 3rd Edition: threads/racing condition and immutable data
