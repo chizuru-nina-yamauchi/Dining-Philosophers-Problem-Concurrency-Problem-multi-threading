@@ -20,18 +20,22 @@ public class Philosopher implements Runnable{
     // run method for thread execution
     @Override
     public void run(){
-
-        while(true) {
             try{
-                // while true, philosopher think, use fork, eat finish using fork
-            think();
-            pickUpForks();
-            eat();
-            putDownForks();
+                while(!Thread.currentThread().isInterrupted()){
+                    // while not interrupted, philosopher think, use fork, eat finish using fork
+                    System.out.println("Philosopher " + philosopherID + " is starting activities.");
+                    think();
+                    pickUpForks();
+                    eat();
+                    putDownForks();
+                    System.out.println("Philosopher " + philosopherID + " finished activities.");
+                }
+
             }catch(InterruptedException e){ // handle interruption (ex. thread termination)
+                System.out.println("Philosopher " + philosopherID + " was interrupted.");
                 Thread.currentThread().interrupt();
             }
-        }
+
     }
 
     // simulates thinking time
@@ -66,8 +70,6 @@ public class Philosopher implements Runnable{
             pickUpForks();
         }
 
-
-
     }
     // simulates eating time
     private void eat()throws InterruptedException{
@@ -79,11 +81,11 @@ public class Philosopher implements Runnable{
     private void putDownForks() throws InterruptedException{
         // put down left fork
         leftFork.putDown();
-        System.out.println("Philosopher " + philosopherID + "put down left fork.");
+        System.out.println("Philosopher " + philosopherID + " put down left fork.");
 
         // put down right fork
         rightFork.putDown();
-        System.out.println("Philosopher " + philosopherID + "put down right fork.");
+        System.out.println("Philosopher " + philosopherID + " put down right fork.");
     }
 
     // getter for the priority of the philosopher

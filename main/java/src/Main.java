@@ -36,23 +36,29 @@ public class Main {
             // set the priority of the thread based on the philosopher's priority
             thread.setPriority(philosopher.getPriority());
 
+            // set the thread as daemon
+            thread.setDaemon(true);
+
             // submit the philosopher thread to the executor service for execution
             executorService.submit(thread);
         }
 
-        // run the simulation for 25 sec
+        // run the simulation for 35 sec
         try{
-            Thread.sleep(25000);
+            Thread.sleep(35000);
         }catch (InterruptedException e){
             e.printStackTrace();
         }finally {
+            System.out.println("Terminating...");
 
             // shut down the executor service to terminate all the philosopher threads
-            executorService.shutdown();
+            executorService.shutdownNow();
         }
         try{
             if(!executorService.awaitTermination(10, TimeUnit.SECONDS)){
                 System.err.println("ExecutorService didn't terminate in time.");
+            }else {
+                System.out.println("ExecutorService terminated successfully.");
             }
         }catch (InterruptedException e){
             e.printStackTrace();
