@@ -1,5 +1,6 @@
+import java.util.concurrent.locks.ReentrantLock;
 
- // represents a philosopher that thinks, eats, and pick up and put down a fork
+// represents a philosopher that thinks, eats, and pick up and put down a fork
 public class Philosopher implements Runnable{
     // attributes
     // making them final = indicates that these values won't be changed after construction, but the objects themselves are not immutable
@@ -42,13 +43,29 @@ public class Philosopher implements Runnable{
     private void pickUpForks() throws InterruptedException{
         System.out.println("Philosopher " + philosopherID + " is waiting for forks.");
 
+
         // pick up left fork
-        leftFork.pickUp();
+        if(leftFork.tryPickUp()){
         System.out.println("Philosopher " + philosopherID + " picked up left fork.");
 
+        // introduce a small delay to avoid potential deadlock
+        Thread.sleep(1000);
+
         // pick up right fork
-        rightFork.pickUp();
-        System.out.println("Philosopher " + philosopherID + " picked up right fork.");
+        if(rightFork.tryPickUp()){
+                System.out.println("Philosopher " + philosopherID + " picked up right fork.");
+            }else {
+            System.out.println("Philosopher " + philosopherID + " couldn't pick up right fork.");
+            leftFork.putDown();
+            Thread.sleep(1000);
+            pickUpForks();
+        }
+        }else {
+            System.out.println("Philosopher " + philosopherID + " couldn't pick up left fork.");
+            Thread.sleep(1000);
+            pickUpForks();
+        }
+
 
 
     }

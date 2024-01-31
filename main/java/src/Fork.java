@@ -1,3 +1,4 @@
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -17,6 +18,10 @@ public class Fork { // remove the Runnable interface since it is not a task that
     // release the fork
     public void putDown(){
         lock.unlock(); // allows other philosophers to access the fork after unlocking
+    }
+
+    public boolean tryPickUp() throws InterruptedException{
+        return lock.tryLock(100, TimeUnit.MILLISECONDS);
     }
 
 }
