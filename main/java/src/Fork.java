@@ -21,7 +21,7 @@ public class Fork { // remove the Runnable interface since it is not a task that
     }
 
     public boolean tryPickUp() throws InterruptedException{
-        return lock.tryLock(100, TimeUnit.MILLISECONDS);
+        return lock.tryLock(1000, TimeUnit.MILLISECONDS);
     }
 
 }

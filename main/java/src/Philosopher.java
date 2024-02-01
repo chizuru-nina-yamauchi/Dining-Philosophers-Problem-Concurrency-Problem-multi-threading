@@ -1,4 +1,3 @@
-import java.util.concurrent.locks.ReentrantLock;
 
 // represents a philosopher that thinks, eats, and pick up and put down a fork
 public class Philosopher implements Runnable{
@@ -41,36 +40,45 @@ public class Philosopher implements Runnable{
     // simulates thinking time
     private void think() throws InterruptedException{
         System.out.println("Philosopher " + philosopherID + " is thinking.");
-        Thread.sleep(1000); // simulate thinking time: 1 second duration
+        Thread.sleep(2000); // simulate thinking time: 2 second duration
     }
     // philosopher picks up both left and right forks
-    private void pickUpForks() throws InterruptedException{
+
+    private void pickUpForks() throws InterruptedException {
         System.out.println("Philosopher " + philosopherID + " is waiting for forks.");
 
-
         // pick up left fork
-        if(leftFork.tryPickUp()){
+        while (!leftFork.tryPickUp()) {
+            System.out.println("Philosopher " + philosopherID + " couldn't pick up left fork.");
+            Thread.sleep(1000); // wait for a bit before retrying
+            System.out.println("Philosopher " + philosopherID + " is waiting for a second before retrying.");
+        }
+
         System.out.println("Philosopher " + philosopherID + " picked up left fork.");
 
         // introduce a small delay to avoid potential deadlock
         Thread.sleep(1000);
 
-        // pick up right fork
-        if(rightFork.tryPickUp()){
-                System.out.println("Philosopher " + philosopherID + " picked up right fork.");
-            }else {
+        // pick up right fork with a wait
+        while (!rightFork.tryPickUp()) {
             System.out.println("Philosopher " + philosopherID + " couldn't pick up right fork.");
-            leftFork.putDown();
-            Thread.sleep(1000);
-            pickUpForks();
-        }
-        }else {
-            System.out.println("Philosopher " + philosopherID + " couldn't pick up left fork.");
-            Thread.sleep(1000);
-            pickUpForks();
+            leftFork.putDown(); // put down the left fork if right fork cannot be picked up
+            System.out.println("Philosopher " + philosopherID + " put down the left fork to retry.");
+            Thread.sleep(1000); // wait for a bit before retrying
+            System.out.println("Philosopher " + philosopherID + " is waiting for a second before retrying.");
+            // pick up left fork again before retrying to pick up the right fork
+            while (!leftFork.tryPickUp()) {
+                System.out.println("Philosopher " + philosopherID + " couldn't pick up left fork.");
+                Thread.sleep(1000); // wait for a bit before retrying
+                System.out.println("Philosopher " + philosopherID + " is waiting for a second before retrying.");
+            }
+            System.out.println("Philosopher " + philosopherID + " picked up left fork again.");
         }
 
+        System.out.println("Philosopher " + philosopherID + " picked up right fork.");
+        Thread.sleep(1000);
     }
+
     // simulates eating time
     private void eat()throws InterruptedException{
         System.out.println("Philosopher " + philosopherID + " is eating.");
