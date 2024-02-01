@@ -1,5 +1,7 @@
-# Dining-Philosophers-Problem-Concurrency-Problem-multi-threading-
-My assignment about concurrency problem and synchronization(multi-threading) with Dinging Philosophers problem for my online java course.
+# Dining-Philosophers-Problem-Concurrency-Problem-multi-threading
+My assignment about concurrency problem and synchronization(multi-threading) with Dinging Philosophers Problem for my online java course.
+My source code: main -> java 
+My result is at the end in this page.
 
 ---
 
@@ -43,6 +45,31 @@ This assignment will help students understand how to apply thread priorities in 
 
 
 ---
+
+## Result
+
+There was a gap in two philosophers action, and I tried with semaphores as well.
+But I researched about the problem I was having and decided to accept the issue and went back to use ReentrantLock(since my assignment indicate me to use ReentrantLock or Synchronized).
+For example, Philosopher 3 picked up the left fork again before Philosopher 4 put down the right fork in the message of the console. 
+But I read this kind of scenario is possible in concurrent programs due to the nature of thread scheduling and the fine-grained timing involved. 
+It doesn't necessarily indicate an error in the program logic.
+In a concurrent environment, the order of execution between threads can be influenced by factors such as thread priorities, system load, and the specific behavior of JVM. 
+The output might be a result of the slight time difference in the actions of the two philosophers.
+(Or it might be logically wrong. If you notice some logical issues or mistakes, happy to hear from you.)
+
+![pic1](./main/resources/pic1.png)
+
+![pic2](./main/resources/pic2.png)
+
+![pic3](./main/resources/pic3.png)
+
+![pic4](./main/resources/pic4.png)
+
+![pic5](./main/resources/pic5.png)
+
+![pic6](./main/resources/pic6.png)
+
+![pic7](./main/resources/pic7.png)
 
 ## Resources
 
