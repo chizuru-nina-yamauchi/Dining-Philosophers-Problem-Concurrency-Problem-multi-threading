@@ -72,9 +72,9 @@ public class Philosopher implements Runnable{
                 Thread.sleep(1000); // wait for a bit before retrying
                 System.out.println("Philosopher " + philosopherID + " is waiting for a second before retrying.");
             }
+
             System.out.println("Philosopher " + philosopherID + " picked up left fork again.");
         }
-
         System.out.println("Philosopher " + philosopherID + " picked up right fork.");
         Thread.sleep(1000);
     }
